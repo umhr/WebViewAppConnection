@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Title</title>
+    <style type="text/css">
+        html {
+            background-color: #CCCCCC;
+        }
+
+        .info {
+            background-color: #333333;
+            color: #FFFFFF;
+            padding: 16px;
+            margin: 8px 0px;
+        }
+
+        a {
+            padding: 5px;
+        }
+
+        code{
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="info">
+        <div>msg</div>
+        <code id="msg"></code>
+        <button onclick="onMsg()">Go</button>
+    </div>
+    <div class="info">
+        <div>音量</div>
+        <div><a href="app://system_audioup">volume up</a>,<a href="app://system_audiodown">volume down</a></div>
+        <div>アプリ</div>
+        <code id="appBtn"></code>
+    </div>
+    <div class="info">
+        <div>ブラウザ</div>
+        <div><input id="input" type="text" name="search" size="36" maxlength="36"><button onclick="onClick()">Go</button>
+        </div>
+        <div id="links">
+            <div><a href="https://www.yahoo.co.jp/">https://www.yahoo.co.jp/</a></div>
+            <div><a href="http://mztm.jp/">http://mztm.jp/</a></div>
+        </div>
+    </div>
+
+    <div id="navigatorInfo" class="info"></div>
+
+    <div class="info">このindex.htmlファイルの場所<br><code>app/src/main/assets/index.html</code></div>
+    <script>
+        function setAppBtn(str) {
+            var html = '';
+            var list = JSON.parse(str);
+            var n = list.length;
+            for (var i = 0; i < n; i++) {
+                html += '<a href="app://app_' + list[i] + '">' + list[i] + '</a><br>';
+            }
+            document.getElementById('appBtn').innerHTML = html;
+        }
+
+        setnavigatorInfo();
+
+        document.getElementById('input').value = location.href;
+
+        function setMsg(msg) {
+            document.getElementById('msg').innerText = msg;
+        }
+
+        function onMsg() {
+            location.href = "app://msg_" + document.getElementById('msg').innerText;
+        }
+
+        function onClick() {
+            location.href = document.getElementById('input').value;
+        }
+
+        function setnavigatorInfo() {
+            var str = 'NavigatorInfo<br><code>';
+            var keys = ['appCodeName', 'appName', 'appVersion', 'language', 'platform', 'product', 'productSub',
+                'userAgent', 'vendor'
+            ];
+            var n = keys.length;
+            for (var i = 0; i < n; i++) {
+                str += keys[i] + ':' + window.navigator[keys[i]] + '<br>';
+            }
+            str += 'window.parent.screen.width:' + window.parent.screen.width + '<br>';
+            str += 'window.parent.screen.height:' + window.parent.screen.height + '<br>';
+            str += 'window.parent.screen.availWidth:' + window.parent.screen.availWidth + '<br>';
+            str += 'window.parent.screen.availHeight:' + window.parent.screen.availHeight + '<br>';
+            str += 'window.innerWidth:' + window.innerWidth + '<br>';
+            str += 'window.innerHeight:' + window.innerHeight + '<br>';
+            str += 'window.outerWidth:' + window.outerWidth + '<br>';
+            str += 'window.outerHeight:' + window.outerHeight + '<br>';
+            str += 'document.width:' + document.width + '<br>';
+            str += 'document.height:' + document.height + '<br>';
+            str += 'document.body.clientWidth:' + document.body.clientWidth + '<br>';
+            str += 'document.body.clientHeight:' + document.body.clientHeight + '<br>';
+            str += 'document.documentElement.clientWidth:' + document.documentElement.clientWidth + '<br>';
+            str += 'document.documentElement.clientHeight:' + document.documentElement.clientHeight + '<br>';
+            str += '</code>';
+            document.getElementById('navigatorInfo').innerHTML = str;
+        }
+    </script>
+</body>
+
+</html>
