@@ -78,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 // jsを実行して、タイトルを取得
-                webView.loadUrl("javascript:location.href = 'app://msg_' + document.title;");
+                //webView.loadUrl("javascript:location.href = 'app://msg_' + document.title;");
                 // タイトルを取得したいだけなら、こちらの方がよい
-                //textView.setText("Title:"+webView.getTitle());
+                textView.setText("Title:"+webView.getTitle());
                 super.onPageFinished(view, url);
             }
 
